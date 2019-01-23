@@ -1,7 +1,7 @@
 ## you can download the vcf file from 1000 genomes project.
 if(F){
   library(vcfR)
-  vcf_file='/gatk/germline/merge.vcf'
+  vcf_file='/Users/jmzeng/data/project/merge/genotype/merge.vcf'
   ### 直接读取群体gvcf文件即可 
   vcf <- read.vcfR( vcf_file, verbose = FALSE )
   save(vcf,file = 'example_vcf.Rdata')
@@ -14,9 +14,14 @@ colnames(vcf@gt)
 
 bed=read.table('SNPbeds/SNP_GRCh38_hg38_wChr.bed',header = F,stringsAsFactors = F)
 bed[,2]=trimws(bed[,2])
-need_pos=apply( bed[,1:2] ,1,function(x) paste0(x,collapse = '-'))
+bed[,3]=trimws(bed[,3])
+# please make sure that which column is the position in your vcf file.
+# In this case, it's second column, but in your case, it might be third column.
+# so use bed[,c(1,3)] instead of bed[,c(1,2)]
+need_pos=apply( bed[,c(1,2)] ,1,function(x) paste0(x,collapse = '-'))
 all_pos=apply( vcf@fix[,1:2] ,1,function(x) paste0(x,collapse = '-'))
 table(all_pos %in% need_pos )
+
 filter_vcf=vcf[all_pos %in% need_pos ]
 filter_vcf
 
