@@ -1,4 +1,4 @@
-# Run PCA for a vcf files(GATK joint calling results)
+# Run PCA for a vcf file(GATK joint calling results)
 
 Once you finished the[ GATK best pratice](https://software.broadinstitute.org/gatk/best-practices/workflow?id=11145) for a group of DNA data , a VCF file will be generated.
 
@@ -17,7 +17,7 @@ We will use the depth-dependent correlation models of allele fractions of known 
 if(F){
   library(vcfR)
   vcf_file='/gatk/germline/merge.vcf'
-  ### 直接读取群体gvcf文件即可 
+    
   vcf <- read.vcfR( vcf_file, verbose = FALSE )
   save(vcf,file = 'example_vcf.Rdata')
 } 
